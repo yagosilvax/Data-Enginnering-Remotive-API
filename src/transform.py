@@ -1,7 +1,7 @@
 
 import pandas as pd
 import numpy as np
-
+from load import conectar_banco
 
 def trat_dados_origem(dados):
     """Realiza o tratamento geral da base de dados. como mundança de tipos e padronização de valores."""
@@ -96,3 +96,58 @@ def criar_dim_localizacao(df_origem):
     )
     dim_local = dim_local.rename(columns={"candidate_required_location":"localizacao_candidato"})
     return dim_local
+
+
+
+
+def buscar_dimensoes():
+    """Busca todas as tabelas de dimensão do banco e retorna num dicionário."""
+    engine = conectar_banco()
+    dim_empresa = pd.read_sql("SELECT * FROM dim_empresa", engine)
+    dim_categoria = pd.read_sql("SELECT * FROM dim_categoria", engine)
+    dim_skill = pd.read_sql("SELECT * FROM dim_skill", engine)
+    dim_local = pd.read_sql("SELECT * FROM dim_local", engine)
+
+    return {
+        "dim_empresa": dim_empresa,
+        "dim_categoria": dim_categoria,
+        "dim_skill": dim_skill,
+        "dim_local": dim_local
+    }
+
+
+
+
+
+def criar_fato(df_origem,dimensoes):
+    dim_empresa = dimensoes["dim_empresa"]
+    dim_local = dimensoes["dim_local"]
+    dim_categoria = dimensoes["dim_categoria"]
+
+    fato_vagas = df_origem.merge(
+        dim_empresa,
+        how='left',
+        left_on='company_name',
+        right_on='nome_empresa'
+    )
+
+    fato_vagas = fato_vagas.merge(
+        dim_categoria,
+        how='left',
+        left_on='category',
+        right_on='nome_categoria'
+    )
+    fato_vagas = fato_vagas.merge(
+        dim_local,
+        how='left',
+        left_on='candidate_required_location',
+        right_on='localizacao_candidato'
+    )
+    columns = ["id","title","job_type","publication_date","salary_min","currency","salary_max","id_empresa","id_categoria","id_local"]
+    fato_vagas = fato_vagas[columns]
+    fato_vagas = fato_vagas.rename(columns={"id": "vaga_id","id_empresa":"empresa_id","id_categoria":"categoria_id","id_local":"localizacao_id"})
+
+    return fato_vagas
+
+
+

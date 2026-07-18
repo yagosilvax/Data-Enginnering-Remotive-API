@@ -1,0 +1,10 @@
+2026-07-18 19:31:30,645 - INFO - ============Extraindo dados...==============
+
+2026-07-18 19:31:31,057 - INFO - Dados extraídos com sucesso!
+
+2026-07-18 19:31:31,057 - INFO - ============Iniciando a transformação dos dados...==============
+2026-07-18 19:31:31,186 - INFO - Dados transformados e padronizados!
+
+2026-07-18 19:31:31,186 - INFO - Iniciando a conexão com o o banco de dados...
+2026-07-18 19:31:31,314 - INFO - Dados carregados no banco!
+

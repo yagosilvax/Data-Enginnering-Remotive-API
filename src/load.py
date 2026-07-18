@@ -17,12 +17,9 @@ def conectar_banco():
     engine = create_engine(url)
 
     try:
-        print("Conectando ao banco de dados...")
         with engine.connect():
-            print("Conexão bem sucedida!")
             return engine
     except Exception as e:
-        print(f"A conexão falhou:{e}")
         raise
 
 
@@ -53,5 +50,26 @@ def carregar_dimensoes(tabelas_dim):
             carregar_dimensao(df, nome_tabela, conn)
 
 
-def buscar_dimensoes(tabelas_dim):
+
+def carregar_fato_vagas(tabela_fato,nome_tabela):
+    """Carrega a tabela de fatos no banco de dados."""
+    engine = conectar_banco()
+    colunas = tabela_fato.columns.to_list()
+    coluna_constraint = "vaga_id"
+    colunas_sql = ", ".join(colunas)
+    valores_sql = ", ".join([f":{col}" for col in colunas])
+
+    with engine.begin() as conn:
+        sql = f"""
+        INSERT INTO {nome_tabela} ({colunas_sql})
+        VALUES ({valores_sql})
+        ON CONFLICT ({coluna_constraint}) DO NOTHING
+        """
+        for _, row in tabela_fato.iterrows():
+            conn.execute(
+            text(sql),
+            row.to_dict()
+        )
+
+    
     

@@ -12,5 +12,5 @@ def extrair_dados():
         with open(r"raw/remotive_data.json",'w') as file:
             json.dump(json_file,file,indent=4)
             return json_file
-    except Exception as e:
-        print(f'Erro ao buscar os dados:{e}')
+    except Exception:
+        raise
