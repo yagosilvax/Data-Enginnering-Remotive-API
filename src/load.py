@@ -40,20 +40,16 @@ def carregar_dimensao(df,nome_tabela,conn):
         )
 
 
-def carregar_dimensoes(tabelas_dim):
+def carregar_dimensoes(tabelas_dim,engine):
     """Carrega todas tabelas no banco de dados."""
-
-    engine = conectar_banco()
-
     with engine.begin() as conn:
         for nome_tabela, df in tabelas_dim.items():
             carregar_dimensao(df, nome_tabela, conn)
 
 
 
-def carregar_fato_vagas(tabela_fato,nome_tabela):
+def carregar_fato_vagas(tabela_fato,nome_tabela,engine):
     """Carrega a tabela de fatos no banco de dados."""
-    engine = conectar_banco()
     colunas = tabela_fato.columns.to_list()
     coluna_constraint = "vaga_id"
     colunas_sql = ", ".join(colunas)
@@ -72,4 +68,20 @@ def carregar_fato_vagas(tabela_fato,nome_tabela):
         )
 
     
-    
+def carregar_bridge_skill(df_bridge,nome_tabela,engine):
+
+    columns = df_bridge.columns.to_list()
+    colunas_sql = ", ".join(columns)
+    valores_sql = ", ".join([f":{col}" for col in columns])
+
+    with engine.begin() as conn:
+        sql = f"""
+        INSERT INTO {nome_tabela} ({colunas_sql})
+        VALUES ({valores_sql})
+        """
+        for _, row in df_bridge.iterrows():
+            conn.execute(
+            text(sql),
+            row.to_dict()
+        )
+            

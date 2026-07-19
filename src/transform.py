@@ -100,9 +100,8 @@ def criar_dim_localizacao(df_origem):
 
 
 
-def buscar_dimensoes():
+def buscar_dimensoes(engine):
     """Busca todas as tabelas de dimensão do banco e retorna num dicionário."""
-    engine = conectar_banco()
     dim_empresa = pd.read_sql("SELECT * FROM dim_empresa", engine)
     dim_categoria = pd.read_sql("SELECT * FROM dim_categoria", engine)
     dim_skill = pd.read_sql("SELECT * FROM dim_skill", engine)
@@ -148,6 +147,25 @@ def criar_fato(df_origem,dimensoes):
     fato_vagas = fato_vagas.rename(columns={"id": "vaga_id","id_empresa":"empresa_id","id_categoria":"categoria_id","id_local":"localizacao_id"})
 
     return fato_vagas
+
+
+def criar_bridge_skills(df_exploded_skills,df_skill):
+
+    df_bridge_skills = (
+        df_exploded_skills.merge(
+        df_skill,
+        how='left',
+        left_on="tags",
+        right_on="nome_skill")
+        )
+    
+    df_bridge_skills = df_bridge_skills[["id","skill_id"]]
+    
+    df_bridge_skills = df_bridge_skills.dropna()
+    df_bridge_skills["skill_id"] = df_bridge_skills["skill_id"].astype(int)
+    df_bridge_skills = df_bridge_skills.rename(columns={"id":"vaga_id"})
+    return df_bridge_skills
+
 
 
 
