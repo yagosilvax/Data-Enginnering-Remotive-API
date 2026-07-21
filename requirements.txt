@@ -1,4 +1,5 @@
 asttokens==3.0.2
+binary==1.0.2
 certifi==2026.6.17
 charset-normalizer==3.4.9
 colorama==0.4.6
@@ -25,6 +26,7 @@ parso==0.8.7
 platformdirs==4.10.0
 prompt_toolkit==3.0.52
 psutil==7.2.2
+psycopg2==2.9.12
 pure_eval==0.2.3
 Pygments==2.20.0
 python-dateutil==2.9.0.post0
