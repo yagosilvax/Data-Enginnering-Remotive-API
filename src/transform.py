@@ -4,7 +4,7 @@ import numpy as np
 from load import conectar_banco
 
 def trat_dados_origem(dados):
-    """Realiza o tratamento geral da base de dados. como mundança de tipos e padronização de valores."""
+    """Realiza o tratamento geral da base de dados antes da criação das dimensões e fato, como mundança de tipos e padronização de valores."""
     df = pd.DataFrame(dados)
     df_origem = df.copy()
     df_origem.columns
@@ -58,6 +58,7 @@ def trat_dados_origem(dados):
 # Tratamento
 
 def criar_dim_empresa(df_origem):
+    """Cria a tabela de dimensão com o id e nome de cada empresa."""
     dim_empresa = (
         df_origem[["company_name"]]
         .drop_duplicates()
@@ -67,6 +68,7 @@ def criar_dim_empresa(df_origem):
 
 
 def criar_dim_skill(df_exploded):
+    """Cria a tabela de dimensão com o id e nome de cada skill."""
 
     dim_skill = (
     df_exploded[["tags"]]
@@ -79,6 +81,7 @@ def criar_dim_skill(df_exploded):
     return dim_skill
 
 def criar_dim_categoria(df_origem):
+    """Cria a tabela de dimensão com o id e nome de cada categoria pertencente à vaga."""
     dim_categoria = (
         df_origem[["category"]]
         .drop_duplicates()
@@ -89,6 +92,7 @@ def criar_dim_categoria(df_origem):
     return dim_categoria 
 
 def criar_dim_localizacao(df_origem):
+    """Cria a tabela de dimensão com o id e nome de cada região."""
     dim_local = ( 
         df_origem[["candidate_required_location"]]
         .drop_duplicates()
@@ -119,6 +123,7 @@ def buscar_dimensoes(engine):
 
 
 def criar_fato(df_origem,dimensoes):
+    """Cria a tabela de eventos das vagas, contendo os ids das dimensoes( tabela principal)"""
     dim_empresa = dimensoes["dim_empresa"]
     dim_local = dimensoes["dim_local"]
     dim_categoria = dimensoes["dim_categoria"]
@@ -150,6 +155,7 @@ def criar_fato(df_origem,dimensoes):
 
 
 def criar_bridge_skills(df_exploded_skills,df_skill):
+    """Cria a tabela de ponte entre as skills e as vagas, permitindo relacioná-las."""
 
     df_bridge_skills = (
         df_exploded_skills.merge(

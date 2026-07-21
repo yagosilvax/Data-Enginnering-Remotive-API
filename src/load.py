@@ -25,7 +25,8 @@ def conectar_banco():
 
     
 def carregar_dimensao(df,nome_tabela,conn):
-        """Define o script SQL responsável por iterar as linhas de cada dataframe e inserir no banco de dados apenas registros novos."""
+        """Define o script SQL responsável por iterar as linhas de cada dataframe referente às 
+        dimensões, e inserir no banco de dados apenas registros novos."""
 
         coluna = df.columns[0]
         sql = f"""
@@ -41,7 +42,7 @@ def carregar_dimensao(df,nome_tabela,conn):
 
 
 def carregar_dimensoes(tabelas_dim,engine):
-    """Carrega todas tabelas no banco de dados."""
+    """Carrega todas tabelas de dimensão no banco de dados."""
     with engine.begin() as conn:
         for nome_tabela, df in tabelas_dim.items():
             carregar_dimensao(df, nome_tabela, conn)
@@ -69,7 +70,7 @@ def carregar_fato_vagas(tabela_fato,nome_tabela,engine):
 
     
 def carregar_bridge_skill(df_bridge,nome_tabela,engine):
-
+    """Carrega a tabela de ponte no banco de dados."""
     columns = df_bridge.columns.to_list()
     colunas_sql = ", ".join(columns)
     valores_sql = ", ".join([f":{col}" for col in columns])

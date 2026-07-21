@@ -67,4 +67,25 @@ CREATE TABLE fato_vaga (
 ALTER TABLE fato_vaga
 ADD CONSTRAINT uq_id_vaga UNIQUE(vaga_id)
 
+
+
+CREATE TABLE dim_vaga_skill(
+
+vaga_id BIGINT NOT NULL,
+
+skill_id INT NOT NULL,
+
+
+FOREIGN KEY (vaga_id) REFERENCES fato_vaga(vaga_id),
+FOREIGN KEY (skill_id) REFERENCES dim_skill(skill_id)
+
+
+);
+
+
+SELECT * FROM dim_vaga_skill
+SELECT * FROM dim_empresa
+SELECT * FROM dim_categoria
+SELECT * FROM dim_skill
+SELECT * FROM dim_local
 SELECT * FROM fato_vaga
