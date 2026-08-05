@@ -26,5 +26,4 @@ class RemotiveExtractor:
             json.dump(json,file,indent=4)
             return dados
 
-dados = RemotiveExtractor()
 
