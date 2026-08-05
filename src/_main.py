@@ -1,129 +1,105 @@
-import pandas as pd
 import logging
+import pandas as pd
 
-
-from extract import extrair_dados
-from transform import (
-    trat_dados_origem,
-    criar_dim_categoria,
-    criar_dim_empresa,
-    criar_dim_localizacao,
-    criar_dim_skill
-    
-    
-
-)
-from transform import criar_fato,buscar_dimensoes,criar_bridge_skills
-from load import carregar_fato_vagas
-from load import carregar_dimensoes
-from load import conectar_banco
-from load import carregar_bridge_skill
-
+from extract import RemotiveExtractor
+from transform import TransformarDados
+from load import EnviarBanco
 
 
 logging.basicConfig(
-    level = logging.INFO,
-    format= "%(asctime)s - %(levelname)s - %(message)s",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
     handlers=[
         logging.FileHandler("vagas_remotas_pipeline.log"),
         logging.StreamHandler()
-]
-
+    ]
 )
 logger = logging.getLogger(__name__)
 
 
-# Extração de todos os dados:
-
 try:
     logger.info("===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============")
+
+    # Extração
     try:
         logger.info("Extraindo dados...\n")
-        data = extrair_dados()
-        dados = data["jobs"]
+        extrator = RemotiveExtractor()
+        dados = extrator.extrair_dados()
         logger.info("Dados extraídos com sucesso!\n")
     except Exception as e:
-        logger.critical(f"Extração interrompida:{e}")
+        logger.critical(f"Extração interrompida: {e}")
+        raise  
 
+    try:
+        logger.info("Iniciando conexão com o banco de dados...")
+        carregador = EnviarBanco()
+        logger.info("Conexão criada")
+    except Exception as e:
+        logger.critical(f"Erro ao tentar realizar conexão com o banco de dados: {e}")
+        raise
 
-    # Transformação geral dos dados de origem:
+    # Transformação
     try:
         logger.info("Iniciando a transformação dos dados de origem...")
-        df_origem = trat_dados_origem(dados)
-        df_exploded_skills = df_origem.explode("tags",ignore_index=True)
+        transformador = TransformarDados(dados=dados, engine=carregador.engine)
+        transformador.trat_dados_origem()
+        transformador.explodir_skills()  
         logger.info("Dados transformados e padronizados!\n")
     except Exception as e:
         logger.error(f"Erro ao tentar transformar os dados: {e}")
         raise
 
-    # Criação das tabelas de dimensão:
+    # Criação das dimensões
     try:
         logger.info("Criando tabelas de dimensão...")
-        dim_empresa = criar_dim_empresa(df_origem)
-        dim_skill = criar_dim_skill(df_exploded_skills)
-        dim_local = criar_dim_localizacao(df_origem)
-        dim_categoria = criar_dim_categoria(df_origem)
+        dim_empresa = transformador.criar_dim_empresa()
+        dim_skill = transformador.criar_dim_skill()
+        dim_local = transformador.criar_dim_localizacao()
+        dim_categoria = transformador.criar_dim_categoria()
         logger.info("Tabelas criadas com sucesso!")
     except Exception as e:
-        logger.error(f"Erro ao criar tabelas de dimensão:{e}")
+        logger.error(f"Erro ao criar tabelas de dimensão: {e}")
         raise
 
-
-
-    # Conexão com o banco de dados:
-    try:
-        logger.info("Iniciando conexão com o banco de dados...")
-        engine = conectar_banco()
-        if engine:
-            logger.info("Conexão criada")
-    except Exception as e:
-        logger.critical(f"Erro ao tentar realizar conexão com o banco de dados:{e}")
-
-    # Levando tabelas de dimensão para o banco:
+    # Carga das dimensões
     try:
         logger.info("Encaminhando as tabelas dimensionais para o banco de dados...")
-
-        tabelas_dim = {"dim_categoria":dim_categoria,
-                    "dim_empresa":dim_empresa,"dim_skill":dim_skill,
-                    "dim_local":dim_local}
-
-        carregar_dimensoes(tabelas_dim,engine)
+        tabelas_dim = {
+            "dim_categoria": dim_categoria,
+            "dim_empresa": dim_empresa,
+            "dim_skill": dim_skill,
+            "dim_local": dim_local,
+        }
+        carregador.carregar_dimensoes(tabelas_dim)
         logger.info("Tabelas de dimensão enviadas para o banco de dados.")
-
     except Exception as e:
-        logger.info(f"Erro ao enviar as tabelas para o banco de dados: {e}")
+        logger.error(f"Erro ao enviar as tabelas para o banco de dados: {e}")
+        raise
 
-
-
-    # Consulta às tabelas de dimensão para criação da tabela de fatos:
+    # Fato + bridge
     try:
         logger.info("Consultando tabelas de dimensão...")
-        
-        dimensoes = buscar_dimensoes(engine)
+        dimensoes = transformador.buscar_dimensoes()
 
-    # Criação da tabela de fatos:
         logger.info("Criando tabela de fatos...")
-        fato_vagas = criar_fato(df_origem,dimensoes)
+        fato_vagas = transformador.criar_fato(dimensoes)
 
-    # Levando a tabela de fatos para o banco:
         logger.info("Enviando tabela de fatos para o banco de dados...")
-        carregar_fato_vagas(fato_vagas,'fato_vaga',engine)
+        carregador.carregar_fato_vagas(fato_vagas, "fato_vaga")
 
-    # Criação e envio da tabela de ponte entre as vagas e skills para relação * para muitos:
         logger.info("Criando tabela de ponte entre skills e vagas...")
-        skill_banco = pd.read_sql("SELECT * FROM dim_skill", engine)
-        dim_vaga_skill = criar_bridge_skills(df_exploded_skills,skill_banco)
+        skill_banco = pd.read_sql("SELECT * FROM dim_skill", carregador.engine)
+        dim_vaga_skill = transformador.criar_bridge_skills(skill_banco)
+
+        logger.info("Enviando tabela de ponte para o banco de dados...")
+        carregador.carregar_bridge_skill(dim_vaga_skill, "dim_vaga_skill")
+
         logger.info("Tabela criada e enviada para o banco.")
     except Exception as e:
-        logger.error(f"Erro ao consultar as tabelas de dimensão e gerar a tabela de fatos:{e}")
+        logger.error(f"Erro ao executar: {e}")
         raise
 
     logger.info("==================PIPELINE FINALIZADO==================")
 
-except: 
-    logger.critical("Erro ao finalizar o pipeline")
-    
-        
-
-
-
+except Exception as e:
+    logger.critical(f"Erro ao finalizar o pipeline: {e}")
