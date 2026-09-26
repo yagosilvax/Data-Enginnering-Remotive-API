@@ -12,12 +12,12 @@ class EnviarBanco:
 
     def _conectar(self):
         """Realiza a conexão com o banco de dados."""
-        host = os.getenv("host")
-        database = os.getenv("database")
-        user = os.getenv("usuario")
-        port = os.getenv("port")
-        password = os.getenv("senha_banco")
-        url = f"postgresql://{user}:{password}@{host}:{port}/{database}"
+        self.host = os.getenv("host")
+        self.database = os.getenv("database")
+        self.user = os.getenv("usuario")
+        self.port = os.getenv("port")
+        self.password = os.getenv("senha_banco")
+        url = f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
 
         engine = create_engine(url)
 
@@ -26,67 +26,49 @@ class EnviarBanco:
                 return engine
         except Exception:
             raise
-    
 
-    def _carregar_dimensao(self,df,nome_tabela,conn):
-            """Define o script SQL responsável por iterar as linhas de cada dataframe referente às 
-            dimensões, e inserir no banco de dados apenas registros novos."""
 
-            coluna = df.columns[0]
-            sql = f"""
-            INSERT INTO {nome_tabela} ({coluna})
-            VALUES (:valor)
-            ON CONFLICT ({coluna}) DO NOTHING
+    def _executar_upsert(self,df,nome_tabela,conn,chave):
+        colunas_df = df.columns.to_list()
+        chave = [chave] if isinstance(chave,str) else list(chave)
+        colunas_sql = ", ".join(colunas_df)
+        valores_sql = ", ".join([f":{col}" for col in colunas_df])
+        chave_sql = ", ".join(chave)
+        colunas_update = [col for col in colunas_df if col not in chave]
+
+        if colunas_update:
+            set_sql = ", ".join([f"{col} = EXCLUDED.{col}" for col in colunas_update])
+            constraint_sql = f"DO UPDATE SET {set_sql}"
+        else:
+            constraint_sql = "DO NOTHING"
+
+        sql = f"""
+            INSERT INTO {nome_tabela} ({colunas_sql})
+            VALUES ({valores_sql})
+            ON CONFLICT ({chave_sql}) {constraint_sql}
             """
-            for _, row in df.iterrows():
-                conn.execute(
-                text(sql),
-                {"valor": row[coluna]}
-            )
+        records = df.to_dict(orient="records")
+        conn.execute(text(sql),records)
+
 
  
     def carregar_dimensoes(self,tabelas_dim: dict):
         """Este método é responsável por carregar todas tabelas de dimensão no banco de dados."""
         with self.engine.begin() as conn:
             for nome_tabela, df in tabelas_dim.items():
-                self._carregar_dimensao(df, nome_tabela, conn)
+                coluna_chave = df.columns[0]
+                self._executar_upsert(df, nome_tabela, conn,coluna_chave)
 
 
 
     def carregar_fato_vagas(self,tabela_fato,nome_tabela):
         """Este método é responsável por carregar a tabela de fatos no banco de dados."""
-        colunas = tabela_fato.columns.to_list()
-        coluna_constraint = "vaga_id"
-        colunas_sql = ", ".join(colunas)
-        valores_sql = ", ".join([f":{col}" for col in colunas])
-
         with self.engine.begin() as conn:
-            sql = f"""
-            INSERT INTO {nome_tabela} ({colunas_sql})
-            VALUES ({valores_sql})
-            ON CONFLICT ({coluna_constraint}) DO NOTHING
-            """
-            for _, row in tabela_fato.iterrows():
-                conn.execute(
-                text(sql),
-                row.to_dict()
-            )
+            self._executar_upsert(tabela_fato,nome_tabela,conn,"vaga_id")
 
     
     def carregar_bridge_skill(self,df_bridge,nome_tabela):
         """Este método é responsável por carregar a tabela de ponte no banco de dados."""
-        columns = df_bridge.columns.to_list()
-        colunas_sql = ", ".join(columns)
-        valores_sql = ", ".join([f":{col}" for col in columns])
-
         with self.engine.begin() as conn:
-            sql = f"""
-            INSERT INTO {nome_tabela} ({colunas_sql})
-            VALUES ({valores_sql})
-            """
-            for _, row in df_bridge.iterrows():
-                conn.execute(
-                text(sql),
-                row.to_dict()
-            )
-            
+            self._executar_upsert(df_bridge,nome_tabela,conn,["vaga_id","skill_id"])
+   

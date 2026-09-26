@@ -439,3 +439,505 @@ LINE 2:             INSERT INTO skill_vaga (vaga_id, skill_id)
 2026-08-15 20:35:24,171 - INFO - Enviando tabela de ponte para o banco de dados...
 2026-08-15 20:35:24,207 - INFO - Tabela criada e enviada para o banco.
 2026-08-15 20:35:24,207 - INFO - ==================PIPELINE FINALIZADO==================
+2026-09-05 21:08:40,075 - INFO - ===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============
+2026-09-05 21:08:40,075 - INFO - Extraindo dados...
+
+2026-09-05 21:08:40,549 - INFO - Dados extraídos com sucesso!
+
+2026-09-05 21:08:40,553 - INFO - Dados brutos salvos na pasta.
+2026-09-05 21:08:40,553 - INFO - Iniciando conexão com o banco de dados...
+2026-09-05 21:08:40,975 - INFO - Conexão criada
+2026-09-05 21:08:40,975 - INFO - Iniciando a transformação dos dados de origem...
+2026-09-05 21:08:41,003 - INFO - Dados transformados e padronizados!
+
+2026-09-05 21:08:41,003 - INFO - Criando tabelas de dimensão...
+2026-09-05 21:08:41,010 - INFO - Tabelas criadas com sucesso!
+2026-09-05 21:08:41,010 - INFO - Encaminhando as tabelas dimensionais para o banco de dados...
+2026-09-05 21:08:41,112 - INFO - Tabelas de dimensão enviadas para o banco de dados.
+2026-09-05 21:08:41,112 - INFO - Consultando tabelas de dimensão...
+2026-09-05 21:08:41,230 - INFO - Criando tabela de fatos...
+2026-09-05 21:08:41,235 - INFO - Enviando tabela de fatos para o banco de dados...
+2026-09-05 21:08:41,259 - INFO - Criando tabela de ponte entre skills e vagas...
+2026-09-05 21:08:41,263 - INFO - Enviando tabela de ponte para o banco de dados...
+2026-09-05 21:08:41,344 - INFO - Tabela criada e enviada para o banco.
+2026-09-05 21:08:41,344 - INFO - ==================PIPELINE FINALIZADO==================
+2026-09-24 18:58:41,194 - INFO - ===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============
+2026-09-24 18:58:41,194 - INFO - Extraindo dados...
+
+2026-09-24 18:58:41,771 - INFO - Dados extraídos com sucesso!
+
+2026-09-24 18:58:41,773 - INFO - Dados brutos salvos na pasta.
+2026-09-24 18:58:41,774 - INFO - Iniciando conexão com o banco de dados...
+2026-09-24 18:58:42,208 - INFO - Conexão criada
+2026-09-24 18:58:42,208 - INFO - Iniciando a transformação dos dados de origem...
+2026-09-24 18:58:42,223 - INFO - Dados transformados e padronizados!
+
+2026-09-24 18:58:42,223 - INFO - Criando tabelas de dimensão...
+2026-09-24 18:58:42,226 - INFO - Tabelas criadas com sucesso!
+2026-09-24 18:58:42,227 - INFO - Encaminhando as tabelas dimensionais para o banco de dados...
+2026-09-24 18:58:42,230 - ERROR - Erro ao enviar as tabelas para o banco de dados: (psycopg2.errors.SyntaxError) syntax error at end of input
+LINE 5:             
+                    ^
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(valor)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET  
+            ]
+[parameters: {'valor': 'All others'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 18:58:42,230 - CRITICAL - Erro ao finalizar o pipeline: (psycopg2.errors.SyntaxError) syntax error at end of input
+LINE 5:             
+                    ^
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(valor)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET  
+            ]
+[parameters: {'valor': 'All others'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 19:00:14,655 - INFO - ===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============
+2026-09-24 19:00:14,655 - INFO - Extraindo dados...
+
+2026-09-24 19:00:15,161 - INFO - Dados extraídos com sucesso!
+
+2026-09-24 19:00:15,163 - INFO - Dados brutos salvos na pasta.
+2026-09-24 19:00:15,163 - INFO - Iniciando conexão com o banco de dados...
+2026-09-24 19:00:15,243 - INFO - Conexão criada
+2026-09-24 19:00:15,243 - INFO - Iniciando a transformação dos dados de origem...
+2026-09-24 19:00:15,252 - INFO - Dados transformados e padronizados!
+
+2026-09-24 19:00:15,252 - INFO - Criando tabelas de dimensão...
+2026-09-24 19:00:15,255 - INFO - Tabelas criadas com sucesso!
+2026-09-24 19:00:15,255 - INFO - Encaminhando as tabelas dimensionais para o banco de dados...
+2026-09-24 19:00:15,256 - ERROR - Erro ao enviar as tabelas para o banco de dados: (sqlalchemy.exc.InvalidRequestError) A value is required for bind parameter 'valor'
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(valor)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET  
+            ]
+[parameters: [{'nome_categoria': 'All others'}]]
+(Background on this error at: https://sqlalche.me/e/20/cd3x)
+2026-09-24 19:00:15,257 - CRITICAL - Erro ao finalizar o pipeline: (sqlalchemy.exc.InvalidRequestError) A value is required for bind parameter 'valor'
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(valor)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET  
+            ]
+[parameters: [{'nome_categoria': 'All others'}]]
+(Background on this error at: https://sqlalche.me/e/20/cd3x)
+2026-09-24 19:04:51,492 - INFO - ===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============
+2026-09-24 19:04:51,492 - INFO - Extraindo dados...
+
+2026-09-24 19:04:51,960 - INFO - Dados extraídos com sucesso!
+
+2026-09-24 19:04:51,963 - INFO - Dados brutos salvos na pasta.
+2026-09-24 19:04:51,963 - INFO - Iniciando conexão com o banco de dados...
+2026-09-24 19:04:52,044 - INFO - Conexão criada
+2026-09-24 19:04:52,044 - INFO - Iniciando a transformação dos dados de origem...
+2026-09-24 19:04:52,053 - INFO - Dados transformados e padronizados!
+
+2026-09-24 19:04:52,053 - INFO - Criando tabelas de dimensão...
+2026-09-24 19:04:52,057 - INFO - Tabelas criadas com sucesso!
+2026-09-24 19:04:52,057 - INFO - Encaminhando as tabelas dimensionais para o banco de dados...
+2026-09-24 19:04:52,059 - ERROR - Erro ao enviar as tabelas para o banco de dados: (psycopg2.errors.SyntaxError) syntax error at end of input
+LINE 5:             
+                    ^
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(nome_categoria)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET  
+            ]
+[parameters: {'nome_categoria': 'All others'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 19:04:52,059 - CRITICAL - Erro ao finalizar o pipeline: (psycopg2.errors.SyntaxError) syntax error at end of input
+LINE 5:             
+                    ^
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(nome_categoria)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET  
+            ]
+[parameters: {'nome_categoria': 'All others'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 19:04:55,807 - INFO - ===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============
+2026-09-24 19:04:55,808 - INFO - Extraindo dados...
+
+2026-09-24 19:04:56,248 - INFO - Dados extraídos com sucesso!
+
+2026-09-24 19:04:56,250 - INFO - Dados brutos salvos na pasta.
+2026-09-24 19:04:56,250 - INFO - Iniciando conexão com o banco de dados...
+2026-09-24 19:04:56,335 - INFO - Conexão criada
+2026-09-24 19:04:56,335 - INFO - Iniciando a transformação dos dados de origem...
+2026-09-24 19:04:56,344 - INFO - Dados transformados e padronizados!
+
+2026-09-24 19:04:56,344 - INFO - Criando tabelas de dimensão...
+2026-09-24 19:04:56,348 - INFO - Tabelas criadas com sucesso!
+2026-09-24 19:04:56,348 - INFO - Encaminhando as tabelas dimensionais para o banco de dados...
+2026-09-24 19:04:56,351 - ERROR - Erro ao enviar as tabelas para o banco de dados: (psycopg2.errors.SyntaxError) syntax error at end of input
+LINE 5:             
+                    ^
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(nome_categoria)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET  
+            ]
+[parameters: {'nome_categoria': 'All others'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 19:04:56,351 - CRITICAL - Erro ao finalizar o pipeline: (psycopg2.errors.SyntaxError) syntax error at end of input
+LINE 5:             
+                    ^
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(nome_categoria)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET  
+            ]
+[parameters: {'nome_categoria': 'All others'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 19:09:54,950 - INFO - ===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============
+2026-09-24 19:09:54,950 - INFO - Extraindo dados...
+
+2026-09-24 19:09:55,459 - INFO - Dados extraídos com sucesso!
+
+2026-09-24 19:09:55,461 - INFO - Dados brutos salvos na pasta.
+2026-09-24 19:09:55,461 - INFO - Iniciando conexão com o banco de dados...
+2026-09-24 19:09:55,648 - INFO - Conexão criada
+2026-09-24 19:09:55,649 - INFO - Iniciando a transformação dos dados de origem...
+2026-09-24 19:09:55,658 - INFO - Dados transformados e padronizados!
+
+2026-09-24 19:09:55,658 - INFO - Criando tabelas de dimensão...
+2026-09-24 19:09:55,661 - INFO - Tabelas criadas com sucesso!
+2026-09-24 19:09:55,662 - INFO - Encaminhando as tabelas dimensionais para o banco de dados...
+2026-09-24 19:09:55,664 - ERROR - Erro ao enviar as tabelas para o banco de dados: (psycopg2.errors.SyntaxError) syntax error at or near ")"
+LINE 4:             ON CONFLICT (nome_categoria) DO UPDATE SET ()
+                                                                ^
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(nome_categoria)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET ()
+            ]
+[parameters: {'nome_categoria': 'All others'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 19:09:55,664 - CRITICAL - Erro ao finalizar o pipeline: (psycopg2.errors.SyntaxError) syntax error at or near ")"
+LINE 4:             ON CONFLICT (nome_categoria) DO UPDATE SET ()
+                                                                ^
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(nome_categoria)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET ()
+            ]
+[parameters: {'nome_categoria': 'All others'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 19:10:22,351 - INFO - ===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============
+2026-09-24 19:10:22,352 - INFO - Extraindo dados...
+
+2026-09-24 19:10:22,859 - INFO - Dados extraídos com sucesso!
+
+2026-09-24 19:10:22,861 - INFO - Dados brutos salvos na pasta.
+2026-09-24 19:10:22,862 - INFO - Iniciando conexão com o banco de dados...
+2026-09-24 19:10:22,950 - INFO - Conexão criada
+2026-09-24 19:10:22,950 - INFO - Iniciando a transformação dos dados de origem...
+2026-09-24 19:10:22,960 - INFO - Dados transformados e padronizados!
+
+2026-09-24 19:10:22,960 - INFO - Criando tabelas de dimensão...
+2026-09-24 19:10:22,965 - INFO - Tabelas criadas com sucesso!
+2026-09-24 19:10:22,965 - INFO - Encaminhando as tabelas dimensionais para o banco de dados...
+2026-09-24 19:10:22,968 - ERROR - Erro ao enviar as tabelas para o banco de dados: (psycopg2.errors.SyntaxError) syntax error at end of input
+LINE 5:             
+                    ^
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(nome_categoria)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET 
+            ]
+[parameters: {'nome_categoria': 'All others'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 19:10:22,968 - CRITICAL - Erro ao finalizar o pipeline: (psycopg2.errors.SyntaxError) syntax error at end of input
+LINE 5:             
+                    ^
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(nome_categoria)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET 
+            ]
+[parameters: {'nome_categoria': 'All others'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 19:11:11,719 - INFO - ===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============
+2026-09-24 19:11:11,719 - INFO - Extraindo dados...
+
+2026-09-24 19:11:12,143 - INFO - Dados extraídos com sucesso!
+
+2026-09-24 19:11:12,146 - INFO - Dados brutos salvos na pasta.
+2026-09-24 19:11:12,146 - INFO - Iniciando conexão com o banco de dados...
+2026-09-24 19:11:12,231 - INFO - Conexão criada
+2026-09-24 19:11:12,231 - INFO - Iniciando a transformação dos dados de origem...
+2026-09-24 19:11:12,240 - INFO - Dados transformados e padronizados!
+
+2026-09-24 19:11:12,240 - INFO - Criando tabelas de dimensão...
+2026-09-24 19:11:12,246 - INFO - Tabelas criadas com sucesso!
+2026-09-24 19:11:12,246 - INFO - Encaminhando as tabelas dimensionais para o banco de dados...
+2026-09-24 19:11:12,248 - ERROR - Erro ao enviar as tabelas para o banco de dados: (psycopg2.errors.SyntaxError) syntax error at end of input
+LINE 5:             
+                    ^
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(nome_categoria)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET 
+            ]
+[parameters: {'nome_categoria': 'All others'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 19:11:12,248 - CRITICAL - Erro ao finalizar o pipeline: (psycopg2.errors.SyntaxError) syntax error at end of input
+LINE 5:             
+                    ^
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(nome_categoria)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET 
+            ]
+[parameters: {'nome_categoria': 'All others'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 19:12:22,022 - INFO - ===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============
+2026-09-24 19:12:22,023 - INFO - Extraindo dados...
+
+2026-09-24 19:12:22,466 - INFO - Dados extraídos com sucesso!
+
+2026-09-24 19:12:22,469 - INFO - Dados brutos salvos na pasta.
+2026-09-24 19:12:22,469 - INFO - Iniciando conexão com o banco de dados...
+2026-09-24 19:12:22,691 - INFO - Conexão criada
+2026-09-24 19:12:22,691 - INFO - Iniciando a transformação dos dados de origem...
+2026-09-24 19:12:22,705 - INFO - Dados transformados e padronizados!
+
+2026-09-24 19:12:22,705 - INFO - Criando tabelas de dimensão...
+2026-09-24 19:12:22,709 - INFO - Tabelas criadas com sucesso!
+2026-09-24 19:12:22,709 - INFO - Encaminhando as tabelas dimensionais para o banco de dados...
+2026-09-24 19:12:22,711 - ERROR - Erro ao enviar as tabelas para o banco de dados: (psycopg2.errors.SyntaxError) syntax error at end of input
+LINE 5:             
+                    ^
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(nome_categoria)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET 
+            ]
+[parameters: {'nome_categoria': 'All others'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 19:12:22,712 - CRITICAL - Erro ao finalizar o pipeline: (psycopg2.errors.SyntaxError) syntax error at end of input
+LINE 5:             
+                    ^
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(nome_categoria)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET 
+            ]
+[parameters: {'nome_categoria': 'All others'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 19:13:54,997 - INFO - ===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============
+2026-09-24 19:13:54,997 - INFO - Extraindo dados...
+
+2026-09-24 19:13:55,321 - INFO - Dados extraídos com sucesso!
+
+2026-09-24 19:13:55,324 - INFO - Dados brutos salvos na pasta.
+2026-09-24 19:13:55,324 - INFO - Iniciando conexão com o banco de dados...
+2026-09-24 19:13:55,516 - INFO - Conexão criada
+2026-09-24 19:13:55,516 - INFO - Iniciando a transformação dos dados de origem...
+2026-09-24 19:13:55,527 - INFO - Dados transformados e padronizados!
+
+2026-09-24 19:13:55,527 - INFO - Criando tabelas de dimensão...
+2026-09-24 19:13:55,531 - INFO - Tabelas criadas com sucesso!
+2026-09-24 19:13:55,531 - INFO - Encaminhando as tabelas dimensionais para o banco de dados...
+2026-09-24 19:13:55,533 - ERROR - Erro ao enviar as tabelas para o banco de dados: (psycopg2.errors.SyntaxError) syntax error at or near "<"
+LINE 4: ...       ON CONFLICT (nome_categoria) DO UPDATE SET <generator...
+                                                             ^
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(nome_categoria)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET <generator object EnviarBanco._carregar_dimensao.<locals>.<genexpr> at 0x000001B2DC9BA340>
+            ]
+[parameters: {'nome_categoria': 'All others'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 19:13:55,534 - CRITICAL - Erro ao finalizar o pipeline: (psycopg2.errors.SyntaxError) syntax error at or near "<"
+LINE 4: ...       ON CONFLICT (nome_categoria) DO UPDATE SET <generator...
+                                                             ^
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (%(nome_categoria)s)
+            ON CONFLICT (nome_categoria) DO UPDATE SET <generator object EnviarBanco._carregar_dimensao.<locals>.<genexpr> at 0x000001B2DC9BA340>
+            ]
+[parameters: {'nome_categoria': 'All others'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 20:02:12,571 - INFO - ===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============
+2026-09-24 20:02:12,571 - INFO - Extraindo dados...
+
+2026-09-24 20:02:13,088 - INFO - Dados extraídos com sucesso!
+
+2026-09-24 20:02:13,090 - INFO - Dados brutos salvos na pasta.
+2026-09-24 20:02:13,090 - INFO - Iniciando conexão com o banco de dados...
+2026-09-24 20:02:13,170 - INFO - Conexão criada
+2026-09-24 20:02:13,170 - INFO - Iniciando a transformação dos dados de origem...
+2026-09-24 20:02:13,179 - INFO - Dados transformados e padronizados!
+
+2026-09-24 20:02:13,180 - INFO - Criando tabelas de dimensão...
+2026-09-24 20:02:13,183 - INFO - Tabelas criadas com sucesso!
+2026-09-24 20:02:13,183 - INFO - Encaminhando as tabelas dimensionais para o banco de dados...
+2026-09-24 20:02:13,183 - ERROR - Erro ao enviar as tabelas para o banco de dados: DataFrame.to_dict() got an unexpected keyword argument 'oriented'. Did you mean 'orient'?
+2026-09-24 20:02:13,183 - CRITICAL - Erro ao finalizar o pipeline: DataFrame.to_dict() got an unexpected keyword argument 'oriented'. Did you mean 'orient'?
+2026-09-24 20:02:34,287 - INFO - ===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============
+2026-09-24 20:02:34,287 - INFO - Extraindo dados...
+
+2026-09-24 20:02:34,691 - INFO - Dados extraídos com sucesso!
+
+2026-09-24 20:02:34,694 - INFO - Dados brutos salvos na pasta.
+2026-09-24 20:02:34,694 - INFO - Iniciando conexão com o banco de dados...
+2026-09-24 20:02:34,792 - INFO - Conexão criada
+2026-09-24 20:02:34,792 - INFO - Iniciando a transformação dos dados de origem...
+2026-09-24 20:02:34,801 - INFO - Dados transformados e padronizados!
+
+2026-09-24 20:02:34,802 - INFO - Criando tabelas de dimensão...
+2026-09-24 20:02:34,804 - INFO - Tabelas criadas com sucesso!
+2026-09-24 20:02:34,804 - INFO - Encaminhando as tabelas dimensionais para o banco de dados...
+2026-09-24 20:02:34,808 - ERROR - Erro ao enviar as tabelas para o banco de dados: (psycopg2.errors.UndefinedColumn) column "nome_categoria" does not exist
+LINE 3:             VALUES (nome_categoria)
+                            ^
+DETAIL:  There is a column named "nome_categoria" in table "dim_categoria", but it cannot be referenced from this part of the query.
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (nome_categoria)
+            ON CONFLICT (nome_categoria) DO NOTHING
+            ]
+[parameters: [{}, {}, {}, {}, {}, {}, {}, {}  ... displaying 10 of 12 total bound parameter sets ...  {}, {}]]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 20:02:34,808 - CRITICAL - Erro ao finalizar o pipeline: (psycopg2.errors.UndefinedColumn) column "nome_categoria" does not exist
+LINE 3:             VALUES (nome_categoria)
+                            ^
+DETAIL:  There is a column named "nome_categoria" in table "dim_categoria", but it cannot be referenced from this part of the query.
+
+[SQL: 
+            INSERT INTO dim_categoria (nome_categoria)
+            VALUES (nome_categoria)
+            ON CONFLICT (nome_categoria) DO NOTHING
+            ]
+[parameters: [{}, {}, {}, {}, {}, {}, {}, {}  ... displaying 10 of 12 total bound parameter sets ...  {}, {}]]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 20:10:18,355 - INFO - ===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============
+2026-09-24 20:10:18,355 - INFO - Extraindo dados...
+
+2026-09-24 20:10:18,826 - INFO - Dados extraídos com sucesso!
+
+2026-09-24 20:10:18,829 - INFO - Dados brutos salvos na pasta.
+2026-09-24 20:10:18,829 - INFO - Iniciando conexão com o banco de dados...
+2026-09-24 20:10:19,024 - INFO - Conexão criada
+2026-09-24 20:10:19,024 - INFO - Iniciando a transformação dos dados de origem...
+2026-09-24 20:10:19,037 - INFO - Dados transformados e padronizados!
+
+2026-09-24 20:10:19,038 - INFO - Criando tabelas de dimensão...
+2026-09-24 20:10:19,041 - INFO - Tabelas criadas com sucesso!
+2026-09-24 20:10:19,041 - INFO - Encaminhando as tabelas dimensionais para o banco de dados...
+2026-09-24 20:10:19,076 - INFO - Tabelas de dimensão enviadas para o banco de dados.
+2026-09-24 20:10:19,076 - INFO - Consultando tabelas de dimensão...
+2026-09-24 20:10:19,093 - INFO - Criando tabela de fatos...
+2026-09-24 20:10:19,099 - INFO - Enviando tabela de fatos para o banco de dados...
+2026-09-24 20:10:19,101 - ERROR - Erro ao executar: (psycopg2.errors.UndefinedColumn) column "title" does not exist
+LINE 3:             VALUES (2091144, title, job_type, publication_da...
+                                     ^
+DETAIL:  There is a column named "title" in table "fato_vaga", but it cannot be referenced from this part of the query.
+
+[SQL: 
+            INSERT INTO fato_vaga (vaga_id, title, job_type, publication_date, salary_min, currency, salary_max, empresa_id, categoria_id, localizacao_id)
+            VALUES (%(vaga_id)s, title, job_type, publication_date, salary_min, currency, salary_max, empresa_id, categoria_id, localizacao_id)
+            ON CONFLICT (vaga_id) DO UPDATE SET title = EXCLUDED.title, job_type = EXCLUDED.job_type, publication_date = EXCLUDED.publication_date, salary_min = EXCLUDED.salary_min, currency = EXCLUDED.currency, salary_max = EXCLUDED.salary_max, empresa_id = EXCLUDED.empresa_id, categoria_id = EXCLUDED.categoria_id, localizacao_id = EXCLUDED.localizacao_id
+            ]
+[parameters: [{'vaga_id': 2091144}, {'vaga_id': 2091141}, {'vaga_id': 2091140}, {'vaga_id': 2091139}, {'vaga_id': 2091131}, {'vaga_id': 2091130}, {'vaga_id': 2091129}, {'vaga_id': 1919265}  ... displaying 10 of 19 total bound parameter sets ...  {'vaga_id': 2091100}, {'vaga_id': 2091099}]]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 20:10:19,101 - CRITICAL - Erro ao finalizar o pipeline: (psycopg2.errors.UndefinedColumn) column "title" does not exist
+LINE 3:             VALUES (2091144, title, job_type, publication_da...
+                                     ^
+DETAIL:  There is a column named "title" in table "fato_vaga", but it cannot be referenced from this part of the query.
+
+[SQL: 
+            INSERT INTO fato_vaga (vaga_id, title, job_type, publication_date, salary_min, currency, salary_max, empresa_id, categoria_id, localizacao_id)
+            VALUES (%(vaga_id)s, title, job_type, publication_date, salary_min, currency, salary_max, empresa_id, categoria_id, localizacao_id)
+            ON CONFLICT (vaga_id) DO UPDATE SET title = EXCLUDED.title, job_type = EXCLUDED.job_type, publication_date = EXCLUDED.publication_date, salary_min = EXCLUDED.salary_min, currency = EXCLUDED.currency, salary_max = EXCLUDED.salary_max, empresa_id = EXCLUDED.empresa_id, categoria_id = EXCLUDED.categoria_id, localizacao_id = EXCLUDED.localizacao_id
+            ]
+[parameters: [{'vaga_id': 2091144}, {'vaga_id': 2091141}, {'vaga_id': 2091140}, {'vaga_id': 2091139}, {'vaga_id': 2091131}, {'vaga_id': 2091130}, {'vaga_id': 2091129}, {'vaga_id': 1919265}  ... displaying 10 of 19 total bound parameter sets ...  {'vaga_id': 2091100}, {'vaga_id': 2091099}]]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24 20:13:30,895 - INFO - ===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============
+2026-09-24 20:13:30,895 - INFO - Extraindo dados...
+
+2026-09-24 20:13:31,290 - INFO - Dados extraídos com sucesso!
+
+2026-09-24 20:13:31,292 - INFO - Dados brutos salvos na pasta.
+2026-09-24 20:13:31,292 - INFO - Iniciando conexão com o banco de dados...
+2026-09-24 20:13:31,380 - INFO - Conexão criada
+2026-09-24 20:13:31,380 - INFO - Iniciando a transformação dos dados de origem...
+2026-09-24 20:13:31,391 - INFO - Dados transformados e padronizados!
+
+2026-09-24 20:13:31,391 - INFO - Criando tabelas de dimensão...
+2026-09-24 20:13:31,395 - INFO - Tabelas criadas com sucesso!
+2026-09-24 20:13:31,395 - INFO - Encaminhando as tabelas dimensionais para o banco de dados...
+2026-09-24 20:13:31,414 - INFO - Tabelas de dimensão enviadas para o banco de dados.
+2026-09-24 20:13:31,414 - INFO - Consultando tabelas de dimensão...
+2026-09-24 20:13:31,435 - INFO - Criando tabela de fatos...
+2026-09-24 20:13:31,437 - INFO - Enviando tabela de fatos para o banco de dados...
+2026-09-24 20:13:31,447 - INFO - Criando tabela de ponte entre skills e vagas...
+2026-09-24 20:13:31,452 - INFO - Enviando tabela de ponte para o banco de dados...
+2026-09-24 20:13:31,498 - INFO - Tabela criada e enviada para o banco.
+2026-09-24 20:13:31,498 - INFO - ==================PIPELINE FINALIZADO==================
+2026-09-25 18:37:14,938 - INFO - ===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============
+2026-09-25 18:37:14,938 - INFO - Extraindo dados...
+
+2026-09-25 18:37:15,391 - INFO - Dados extraídos com sucesso!
+
+2026-09-25 18:37:15,394 - INFO - Dados brutos salvos na pasta.
+2026-09-25 18:37:15,394 - INFO - Iniciando conexão com o banco de dados...
+2026-09-25 18:37:15,613 - INFO - Conexão criada
+2026-09-25 18:37:15,613 - INFO - Iniciando a transformação dos dados de origem...
+2026-09-25 18:37:15,631 - INFO - Dados transformados e padronizados!
+
+2026-09-25 18:37:15,632 - INFO - Criando tabelas de dimensão...
+2026-09-25 18:37:15,636 - INFO - Tabelas criadas com sucesso!
+2026-09-25 18:37:15,636 - INFO - Encaminhando as tabelas dimensionais para o banco de dados...
+2026-09-25 18:37:15,656 - INFO - Tabelas de dimensão enviadas para o banco de dados.
+2026-09-25 18:37:15,656 - INFO - Consultando tabelas de dimensão...
+2026-09-25 18:37:15,724 - INFO - Criando tabela de fatos...
+2026-09-25 18:37:15,727 - INFO - Enviando tabela de fatos para o banco de dados...
+2026-09-25 18:37:15,732 - INFO - Criando tabela de ponte entre skills e vagas...
+2026-09-25 18:37:15,737 - INFO - Enviando tabela de ponte para o banco de dados...
+2026-09-25 18:37:15,764 - INFO - Tabela criada e enviada para o banco.
+2026-09-25 18:37:15,764 - INFO - ==================PIPELINE FINALIZADO==================
+2026-09-25 18:42:01,953 - INFO - ===========INICIANDO PIPELINE E MODELAGEM DOS DADOS=============
+2026-09-25 18:42:01,953 - INFO - Extraindo dados...
+
+2026-09-25 18:42:02,467 - INFO - Dados extraídos com sucesso!
+
+2026-09-25 18:42:02,470 - INFO - Dados brutos salvos na pasta.
+2026-09-25 18:42:02,470 - INFO - Iniciando conexão com o banco de dados...
+2026-09-25 18:42:02,672 - INFO - Conexão criada
+2026-09-25 18:42:02,672 - INFO - Iniciando a transformação dos dados de origem...
+2026-09-25 18:42:02,681 - INFO - Dados transformados e padronizados!
+
+2026-09-25 18:42:02,681 - INFO - Criando tabelas de dimensão...
+2026-09-25 18:42:02,684 - INFO - Tabelas criadas com sucesso!
+2026-09-25 18:42:02,684 - INFO - Encaminhando as tabelas dimensionais para o banco de dados...
+2026-09-25 18:42:02,700 - INFO - Tabelas de dimensão enviadas para o banco de dados.
+2026-09-25 18:42:02,701 - INFO - Consultando tabelas de dimensão...
+2026-09-25 18:42:02,719 - INFO - Criando tabela de fatos...
+2026-09-25 18:42:02,721 - INFO - Enviando tabela de fatos para o banco de dados...
+2026-09-25 18:42:02,727 - INFO - Criando tabela de ponte entre skills e vagas...
+2026-09-25 18:42:02,731 - INFO - Enviando tabela de ponte para o banco de dados...
+2026-09-25 18:42:02,753 - INFO - Tabela criada e enviada para o banco.
+2026-09-25 18:42:02,754 - INFO - ==================PIPELINE FINALIZADO==================
