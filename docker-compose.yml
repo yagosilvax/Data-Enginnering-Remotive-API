@@ -1,0 +1,28 @@
+
+services:
+  db:
+    image: postgres:latest
+    container_name: meu-postgres
+    env_file:
+      - .env
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: ${usuario}
+      POSTGRES_PASSWORD: ${senha_banco}
+      POSTGRES_DB: ${database}
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql
+  pipeline:
+    build: .
+    depends_on:
+      - db
+    environment:
+      host: db
+      port: 5432
+    env_file:
+      - .env
+
+volumes:
+  db_data:
