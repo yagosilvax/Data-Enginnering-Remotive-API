@@ -91,53 +91,41 @@ Projeto Remotive-API/
 
 ## Como executar
 
-### 1. Clone o repositório
+### 1. Instale o WSL(Caso sua maquina seja Windows) e o Docker Desktop
 
 ```bash
 git clone https://github.com/yagosilvax/Data-Enginnering-Remotive_API.git
 cd Data-Enginnering-Remotive_API
 ```
 
-### 2. Crie e ative um ambiente virtual
+### 2. Clone o repositório do github com os comandos abaixo:
 
 ```bash
-python -m venv venv
-venv\Scripts\activate      # Windows
-source venv/bin/activate   # Linux/Mac
+git clone https://github.com/yagosilvax/Data-Enginnering-Remotive_API.git
+cd Data-Enginnering-Remotive_API
 ```
 
-### 3. Instale as dependências
+### 3. Configure as variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto com as credenciais do seu banco PostgreSQL usando o arquivo '.env.example' como exemplo.
+
+```
+senha_banco=sua_senha
+usuario=seu_usuario
+database=seu_banco
+host=seu_host
+port=5433
+```
+
+
+### 4. Execute o pipeline:
 
 ```bash
-pip install -r requirements.txt
-```
-
-### 4. Configure as variáveis de ambiente
-
-Crie um arquivo `.env` na raiz do projeto com as credenciais do seu banco PostgreSQL:
-
-```
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=dw_remotive
-DB_USER=seu_usuario
-DB_PASSWORD=sua_senha
-```
-
-### 5. Crie as tabelas no banco de dados
-
-Execute o script SQL de criação das tabelas (`create_tables.sql`) no seu banco PostgreSQL antes de rodar o pipeline.
-
-### 6. Execute o pipeline
-
-```bash
-python src/main.py
+docker compose up
 ```
 
 O andamento da execução pode ser acompanhado em tempo real no terminal e também fica registrado no arquivo `vagas_remotas_pipeline.log`.
 
 ## Próximas etapas:
-
-- Containerizar o projeto utilizando Docker
 - Orquestrar a execução e os logs do pipeline com o Airflow
 
