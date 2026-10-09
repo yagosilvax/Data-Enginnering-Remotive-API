@@ -20,6 +20,7 @@ services:
     restart: always
     volumes:
       - db_data:/var/lib/postgresql
+      - ./src/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql:ro
   pipeline:
     build: .
     depends_on:
