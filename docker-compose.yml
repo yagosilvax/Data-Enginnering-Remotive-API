@@ -8,9 +8,9 @@ services:
     ports:
       - 5433:5432
     environment:
-      POSTGRES_USER: ${usuario}
-      POSTGRES_PASSWORD: ${senha_banco}
-      POSTGRES_DB: ${database}
+      POSTGRES_USER: ${usuario:?error}
+      POSTGRES_PASSWORD: ${senha_banco:?error}
+      POSTGRES_DB: ${database:?error}
     restart: always
     volumes:
       - db_data:/var/lib/postgresql
