@@ -71,6 +71,7 @@ A `fato_vaga` centraliza as métricas de cada vaga (salário, data de publicaç�
 - **pgAdmin 4** — administração e consulta do banco
 - **Remotive API** — fonte dos dados de vagas remotas
 - **logging** — rastreamento de execução do pipeline
+- **Docker** - containerização e gerenciamento de dependências
 
 ## Estrutura do projeto
 
@@ -93,15 +94,10 @@ Projeto Remotive-API/
 
 ### 1. Instale o WSL(Caso sua maquina seja Windows) e o Docker Desktop
 
-```bash
-git clone https://github.com/yagosilvax/Data-Enginnering-Remotive_API.git
-cd Data-Enginnering-Remotive_API
-```
-
 ### 2. Clone o repositório do github com os comandos abaixo:
 
 ```bash
-git clone https://github.com/yagosilvax/Data-Enginnering-Remotive_API.git
+git clone https://github.com/yagosilvax/Data-Enginnering-Remotive_API
 cd Data-Enginnering-Remotive_API
 ```
 
