@@ -77,16 +77,17 @@ A `fato_vaga` centraliza as métricas de cada vaga (salário, data de publicaç�
 
 ```
 Projeto Remotive-API/
+├── dags                   # Orquestração do pipeline (ETL completo)
 ├── notebook/              # Notebook de exploração e prototipagem (EDA)
 ├── raw/                   # Dados brutos extraídos da API (JSON)
 ├── src/
 │   ├── extract.py         # Extração dos dados da Remotive API
 │   ├── transform.py       # Tratamento, limpeza e modelagem dimensional
-│   ├── load.py             # Conexão e carga dos dados no banco
-│   └── main.py             # Orquestração do pipeline (ETL completo)
-├── .env                    # Variáveis de ambiente (credenciais do banco)
+│   ├── load.py            # Conexão e carga dos dados no banco
+│                           
+├── .env                   # Variáveis de ambiente (credenciais do banco)
 ├── .gitignore
-├── requirements.txt         # Dependências do projeto
+├── requirements.txt       # Dependências do projeto
 └── vagas_remotas_pipeline.log  # Log de execução do pipeline
 ```
 
@@ -111,17 +112,17 @@ usuario=seu_usuario
 database=seu_banco
 host=seu_host
 port=5433
+AIRFLOW_UID=5000
+FRENET_KEY=sua_chavegerada
 ```
 
 
-### 4. Execute o pipeline:
+### 4. Execute o pipeline com esse comando no terminal:
 
 ```bash
 docker compose up
 ```
 
-O andamento da execução pode ser acompanhado em tempo real no terminal e também fica registrado no arquivo `vagas_remotas_pipeline.log`.
+O andamento da execução pode ser acompanhado em tempo real no Airflow, com agendamento automático para rodar todos os dias e também fica registrado no arquivo `vagas_remotas_pipeline.log`.
 
-## Próximas etapas:
-- Orquestrar a execução e os logs do pipeline com o Airflow
 
