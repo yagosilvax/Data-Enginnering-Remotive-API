@@ -1,8 +1,8 @@
 *venv
 *.env
 *src/__pycache__
-*data/
-*config/
-*plugins/
+*data/.gitkeep
+*config/.gitkeep
+*plugins/.gitkeep
 *logs/
 *src/__main__.py
