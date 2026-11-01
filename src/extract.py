@@ -5,7 +5,7 @@ import os
 class RemotiveExtractor:
     """Esta classe define os metódos para extrair os dados brutos da API do Remotive Jobs e retornar o arquivo JSON na pasta 'raw'. """
 
-    def __init__(self,url="https://remotive.com/api/remote-jobs",output_path="raw/remotive_data.json"):
+    def __init__(self,url="https://remotive.com/api/remote-jobs",output_path="/opt/airflow/data/raw/remotive_data.json"):
         self.url = url
         self.output_path = output_path
 
