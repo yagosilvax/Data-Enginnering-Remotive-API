@@ -1,6 +1,6 @@
 import requests
 import json
-
+import os
 
 class RemotiveExtractor:
     """Esta classe define os metódos para extrair os dados brutos da API do Remotive Jobs e retornar o arquivo JSON na pasta 'raw'. """
@@ -22,8 +22,10 @@ class RemotiveExtractor:
 
     def salvar_dados(self,dados):
         """Método responsável por obter os dados brutos e salvá-los na pasta 'raw'"""
+        os.makedirs(os.path.dirname(self.output_path), exist_ok=True)
         with open(self.output_path,'w') as file:
             json.dump(dados,file,indent=4)
+        return self.output_path
 
 
 
