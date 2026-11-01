@@ -5,11 +5,12 @@ with DAG(
     dag_id="remotive_etl",
     default_args={"depends_on_past": False,
      "retries":1,
-     "retry_delay": timedelta(minutes=5)},
+     "retry_delay": timedelta(minutes=5),
+     },
+    schedule="@daily",
     start_date=datetime(2026, 10, 25),
     description="ETL completo que extrai dados da Remotive API, transforma os dados e modela em um dw Postgres",
-    schedule_interval="@weekly",
-    catchup=True
+    catchup=False
 ) as dag:
 
     @task
