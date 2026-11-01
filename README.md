@@ -13,6 +13,7 @@ Implementar um pipeline de dados completo que extrai os dados de vagas remotas d
 - Criação de modelo dimensional Star Schema, com a estruturação das tabelas fato e de dimensão a partir do dataset de origem
 - Carga incremental no banco de dados com tratamento de conflitos (`ON CONFLICT DO NOTHING`)
 - Pipeline estruturado com logging em cada etapa (extração, transformação, criação de dimensões, carga no banco)
+- Orquestração do pipeline com Apache Airflow.
 
 ## Modelo de dados (Star Schema)
 
@@ -91,20 +92,22 @@ Projeto Remotive-API/
 └── vagas_remotas_pipeline.log  # Log de execução do pipeline
 ```
 
-## Como executar
+## Agora, teste você mesmo com os passos abaixo:
 
-### 1. Instale o WSL(Caso sua maquina seja Windows) e o Docker Desktop
+### 1. Instale o WSL (caso sua máquina seja Windows) e o Docker Desktop.
 
-### 2. Clone o repositório do github com os comandos abaixo:
+### 2. Clone meu repositório do github com os comandos abaixo:
 
 ```bash
 git clone https://github.com/yagosilvax/Data-Enginnering-Remotive_API
 cd Data-Enginnering-Remotive_API
+copy .env.example .env
+mkdir data
 ```
 
-### 3. Configure as variáveis de ambiente
+### 3. Modifique as variáveis de ambiente:
 
-Crie um arquivo `.env` na raiz do projeto com as credenciais do seu banco PostgreSQL usando o arquivo '.env.example' como exemplo.
+Configure o arquivo `.env` na raiz do projeto com as credenciais do seu banco PostgreSQL usando o arquivo '.env.example' como exemplo.
 
 ```
 senha_banco=sua_senha
@@ -113,16 +116,22 @@ database=seu_banco
 host=seu_host
 port=5433
 AIRFLOW_UID=5000
-FRENET_KEY=sua_chavegerada
+FRENET_KEY=sua_chavegerada -gere essa chave com este comando no terminal: docker run --rm apache/airflow:3.3.2 python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
 ```
 
 
 ### 4. Execute o pipeline com esse comando no terminal:
 
 ```bash
-docker compose up
+docker compose up airflow-init
+docker compose up -d
 ```
+### 5. Visualize o pipeline e os logs no Airflow:
+- Acesse a interface visual do Airflow: https://localhost:8080
+- Entre com este usuário: airflow
+- Senha: airflow
 
-O andamento da execução pode ser acompanhado em tempo real no Airflow, com agendamento automático para rodar todos os dias e também fica registrado no arquivo `vagas_remotas_pipeline.log`.
+
+O andamento da execução pode ser acompanhado em tempo real no Airflow, com agendamento automático para rodar todos os dias no mesmo horário.
 
 
