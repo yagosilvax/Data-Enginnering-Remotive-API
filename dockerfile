@@ -1,21 +1,7 @@
-FROM python:3.11-slim
+FROM apache/airflow:3.3.2
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+COPY requirements.txt /requirements.txt
 
-WORKDIR /Projeto_Remotive_API
-
-COPY requirements.txt .
-
-RUN pip install -r requirements.txt
-
-COPY . .
-
-EXPOSE 5431
-
-CMD [ "python", "src/__main__.py" ]
- 
-
+RUN pip install --no-cache-dir -r /requirements.txt
 
 
