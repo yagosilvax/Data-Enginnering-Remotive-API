@@ -8,7 +8,7 @@ with DAG(
      "retry_delay": timedelta(minutes=5)},
     start_date=datetime(2026, 10, 25),
     description="ETL completo que extrai dados da Remotive API, transforma os dados e modela em um dw Postgres",
-    schedule=timedelta(days=1),
+    schedule_interval="@weekly",
     catchup=True
 ) as dag:
 
